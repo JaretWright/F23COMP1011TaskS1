@@ -23,10 +23,13 @@ class UserTest {
     void setEmailInvalid() {
         Assertions.assertThrows(IllegalArgumentException.class, ()->{
             newUser.setEmail("notMuch");});
+
         Assertions.assertThrows(IllegalArgumentException.class, ()->{
             newUser.setEmail("notMuch.@hmm");});
+
         Assertions.assertThrows(IllegalArgumentException.class, ()->{
-            newUser.setEmail("notMuch.@hmm");});
+            newUser.setEmail("@hmm");});
+
         Assertions.assertThrows(IllegalArgumentException.class, ()->{
             newUser.setEmail("@hmm.com");});
     }
