@@ -1,6 +1,7 @@
 package com.example.f23comp1011tasks1;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBUtility {
     private static String dbUser = "student";
@@ -49,4 +50,36 @@ public class DBUtility {
 
         return responseMsg;
     }
+
+    /**
+     * This method will return a list of users from the database
+     */
+    public static ArrayList<User> getUsersFromDB(){
+        ArrayList<User> users = new ArrayList<>();
+
+        String sql = "SELECT * FROM users";
+
+        //connect to the database - we use a try...with resources block to ensure
+        //the connection, statement and resultSet are automatically closed
+        try(
+                Connection conn = DriverManager.getConnection(connectURL,dbUser, password);
+                Statement statement = conn.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);
+                )
+        {
+            while (resultSet.next())
+            {
+                String email = resultSet.getString("email");
+                String userName = resultSet.getString("userName");
+                users.add(new User(email, userName));
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return users;
+    }
+
 }

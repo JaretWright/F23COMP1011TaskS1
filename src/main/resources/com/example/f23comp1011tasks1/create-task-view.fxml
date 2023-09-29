@@ -38,18 +38,18 @@
                   <Label text="Due Date" GridPane.rowIndex="2" />
                   <Label text="Severity" GridPane.rowIndex="3" />
                   <Label text="User" GridPane.rowIndex="4" />
-                  <TextField promptText="Enter a title" GridPane.columnIndex="1" />
-                  <TextArea prefHeight="200.0" prefWidth="200.0" promptText="Enter description" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <DatePicker prefWidth="600.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Spinner prefWidth="600.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <ComboBox prefWidth="600.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="titleTextField" promptText="Enter a title" GridPane.columnIndex="1" />
+                  <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Enter description" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="dueDatePicker" prefWidth="600.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Spinner fx:id="severitySpinner" prefWidth="600.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="userComboBox" prefWidth="600.0" promptText="Select User" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>
                <VBox.margin>
                   <Insets left="100.0" right="100.0" />
                </VBox.margin>
             </GridPane>
-            <Label text="Label" />
-            <Button mnemonicParsing="false" text="Submit" />
+            <Label fx:id="msgLabel" text="Label" />
+            <Button mnemonicParsing="false" onAction="#submitTask" text="Submit" />
          </children>
          <padding>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
