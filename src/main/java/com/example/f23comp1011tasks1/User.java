@@ -38,4 +38,9 @@ public class User {
         else
             throw new IllegalArgumentException("username must be 2 or more characters");
     }
+
+    public String toString()
+    {
+        return String.format("%s (%s)", userName,email);
+    }
 }
