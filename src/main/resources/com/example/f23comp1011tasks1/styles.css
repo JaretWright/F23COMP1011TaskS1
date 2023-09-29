@@ -1,6 +1,12 @@
 .root{
     -fx-font-size: 20px;
     -fx-font-family: sans-serif;
+    -fx-background-image: url("images/background.png");
+    -fx-background-size: cover;
+}
+
+.label{
+    -fx-text-fill: white;
 }
 
 .button{
