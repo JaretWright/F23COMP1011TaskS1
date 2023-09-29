@@ -52,6 +52,51 @@ public class DBUtility {
     }
 
     /**
+     * This method receives a task object and saves it to the DB
+     * @param task
+     * @return
+     * @throws SQLException
+     */
+    public static String saveTaskToDB(Task task) throws SQLException {
+        String responseMsg = "broken";
+
+        String sql = "INSERT INTO tasks (title, description, creationDate, dueDate, severity, status, email) VALUES " +
+                     "  (?,?,?,?,?,?,?);";
+
+        //try () ... is called try with resources
+        //anything inside the () will be automatically closed
+        try(
+                Connection conn = DriverManager.getConnection(connectURL, dbUser, password);
+                PreparedStatement ps = conn.prepareStatement(sql);
+        )
+        {
+            ps.setString(1,task.getTitle());
+            ps.setString(2,task.getDescription());
+            ps.setDate(3, Date.valueOf(task.getCreationDate()));
+            ps.setDate(4, Date.valueOf(task.getDueDate()));
+            ps.setInt(5,task.getSeverity());
+            ps.setString(6,task.getStatus().toString());
+            ps.setString(7,task.getUser().getEmail());
+
+            ps.executeUpdate();
+
+            responseMsg = "Task Added";
+        }
+        //if the email address was already in the DB, a SQL Integrity Exception is thrown
+        //and the new user would not be added
+        catch(SQLIntegrityConstraintViolationException e)
+        {
+            responseMsg = "User already defined in DB";
+        }
+        catch(Exception e)
+        {
+            responseMsg = e.getMessage();
+        }
+
+        return responseMsg;
+    }
+
+    /**
      * This method will return a list of users from the database
      */
     public static ArrayList<User> getUsersFromDB(){

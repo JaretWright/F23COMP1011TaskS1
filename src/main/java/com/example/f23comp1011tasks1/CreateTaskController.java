@@ -32,7 +32,37 @@ public class CreateTaskController implements Initializable {
 
     @FXML
     void submitTask(ActionEvent event) {
+        if (fieldsArePopulated())
+        {
+            //create a Task object
+            String title = titleTextField.getText();
+            String description = descriptionTextArea.getText();
+            LocalDate dueDate = dueDatePicker.getValue();
+            int severity = severitySpinner.getValue();
+            User user = userComboBox.getValue();
 
+            try {
+                Task task = new Task(title, description, dueDate, severity, user);
+                msgLabel.setText("Task created");
+                //save the task to the DB
+
+            } catch (IllegalArgumentException e)
+            {
+                msgLabel.setText(e.getMessage());
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else
+            msgLabel.setText("Please ensure ALL fields have a value");
+    }
+
+    private boolean fieldsArePopulated()
+    {
+        return !titleTextField.getText().isEmpty() &&
+                !descriptionTextArea.getText().isEmpty() &&
+                userComboBox.getValue() !=null;
     }
 
     @Override
