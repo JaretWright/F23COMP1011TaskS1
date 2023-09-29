@@ -43,8 +43,8 @@ public class CreateTaskController implements Initializable {
 
             try {
                 Task task = new Task(title, description, dueDate, severity, user);
-                msgLabel.setText("Task created");
                 //save the task to the DB
+                msgLabel.setText(DBUtility.saveTaskToDB(task));
 
             } catch (IllegalArgumentException e)
             {

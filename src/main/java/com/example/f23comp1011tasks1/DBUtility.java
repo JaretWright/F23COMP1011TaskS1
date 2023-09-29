@@ -59,6 +59,7 @@ public class DBUtility {
      */
     public static String saveTaskToDB(Task task) throws SQLException {
         String responseMsg = "broken";
+        ResultSet resultSet = null;
 
         String sql = "INSERT INTO tasks (title, description, creationDate, dueDate, severity, status, email) VALUES " +
                      "  (?,?,?,?,?,?,?);";
@@ -67,7 +68,7 @@ public class DBUtility {
         //anything inside the () will be automatically closed
         try(
                 Connection conn = DriverManager.getConnection(connectURL, dbUser, password);
-                PreparedStatement ps = conn.prepareStatement(sql);
+                PreparedStatement ps = conn.prepareStatement(sql, new String[] {"taskID"});
         )
         {
             ps.setString(1,task.getTitle());
@@ -80,7 +81,14 @@ public class DBUtility {
 
             ps.executeUpdate();
 
-            responseMsg = "Task Added";
+            int taskID = -1;
+
+            //get the new taskID assigned by the DB
+            resultSet = ps.getGeneratedKeys();
+            while (resultSet.next())
+                taskID = resultSet.getInt(1);
+
+            responseMsg = "Task " +taskID + " Added";
         }
         //if the email address was already in the DB, a SQL Integrity Exception is thrown
         //and the new user would not be added
