@@ -2,10 +2,12 @@ package com.example.f23comp1011tasks1;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -45,8 +47,8 @@ public class TableViewController {
         tableView.getItems().addAll(allTasks);
     }
     @FXML
-    void viewCharts(ActionEvent event) {
-
+    void viewCharts(ActionEvent event) throws IOException {
+        SceneChanger.changeScenes(event, "charts-view.fxml");
     }
 
 

@@ -1,5 +1,7 @@
 package com.example.f23comp1011tasks1;
 
+import javafx.scene.chart.XYChart;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -180,5 +182,37 @@ public class DBUtility {
         }
 
         return tasks;
+    }
+
+    public static XYChart.Series<String, Integer> getBarChartSeries(Status status)
+    {
+        XYChart.Series<String,Integer> series = new XYChart.Series<>();
+
+        String sql = String.format("SELECT MONTHNAME(creationDate) as month, COUNT(title) AS count " +
+                "FROM tasks " +
+                "WHERE status = '%s' " +
+                "GROUP BY MONTHName(creationDate), status",status.toString());
+
+        //connect to the database - we use a try...with resources block to ensure
+        //the connection, statement and resultSet are automatically closed
+        try(
+                Connection conn = DriverManager.getConnection(connectURL,dbUser, password);
+                Statement statement = conn.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);
+        )
+        {
+            while (resultSet.next())
+            {
+                series.getData().add(new XYChart.Data<>(resultSet.getString("month"),
+                                                              resultSet.getInt("count")));
+            }
+            series.setName(status.toString());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return series;
     }
 }
