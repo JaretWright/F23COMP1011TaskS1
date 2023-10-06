@@ -10,6 +10,9 @@ public class Task {
     private Status status;
     private User user;
 
+    /**
+     * This constructor should be used when creating a new task
+     */
     public Task(String title, String description, LocalDate dueDate, int severity, User user) {
         status = Status.CREATED;
         creationDate =LocalDate.now();
@@ -19,6 +22,20 @@ public class Task {
         setDueDate(dueDate);
         setSeverity(severity);
         setUser(user);
+    }
+
+    /**
+     * This constructor should be used when reading a task from the database
+     */
+    public Task(int taskID, String title, String description, LocalDate creationDate, LocalDate dueDate, int severity, Status status, User user) {
+        this.taskID = taskID;
+        setTitle(title);
+        setDescription(description);
+        this.creationDate = creationDate;
+        this.dueDate = dueDate;
+        setSeverity(severity);
+        setStatus(status);
+        this.user = user;
     }
 
     public int getTaskID() {

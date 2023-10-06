@@ -1,6 +1,7 @@
 package com.example.f23comp1011tasks1;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DBUtility {
@@ -135,4 +136,32 @@ public class DBUtility {
         return users;
     }
 
+    public static ArrayList<Task> getTasksFromDB(){
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        String sql = "SELECT * FROM tasks";
+
+        //connect to the database - we use a try...with resources block to ensure
+        //the connection, statement and resultSet are automatically closed
+        try(
+                Connection conn = DriverManager.getConnection(connectURL,dbUser, password);
+                Statement statement = conn.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);
+        )
+        {
+            while (resultSet.next())
+            {
+                int taskID = resultSet.getInt("taskID");
+                String title = resultSet.getString("title");
+
+                Task newTask = new Task(taskID, title, description, creationDate, dueDate, severity, status, user);
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return tasks;
+    }
 }
