@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.f23comp1011tasks1.ChartsViewController">
+   <children>
+      <Button layoutX="482.0" layoutY="473.0" mnemonicParsing="false" onAction="#viewTables" text="View Tables" />
+   </children>
+</AnchorPane>
