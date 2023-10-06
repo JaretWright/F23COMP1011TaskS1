@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("create-task-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("table-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Task Tamer 3000");
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("images/icon.jpg")));

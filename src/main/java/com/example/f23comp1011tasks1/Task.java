@@ -51,7 +51,7 @@ public class Task {
     }
 
     public void setTitle(String title) {
-        if (validateString(title,30))
+        if (validateString(title,70))
             this.title = title;
         else
             throw new IllegalArgumentException("title must be 2 to 30 characters");

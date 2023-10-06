@@ -124,7 +124,7 @@ public class DBUtility {
             while (resultSet.next())
             {
                 String email = resultSet.getString("email");
-                String userName = resultSet.getString("userName");
+                String userName = resultSet.getString("fullName");
                 users.add(new User(email, userName));
             }
         }
