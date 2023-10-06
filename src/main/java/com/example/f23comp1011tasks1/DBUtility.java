@@ -136,8 +136,19 @@ public class DBUtility {
         return users;
     }
 
+    private static User getUserFromList(String emailOfUser, ArrayList<User> users)
+    {
+        for (User user : users)
+        {
+            if (user.getEmail().equalsIgnoreCase(emailOfUser))
+                return user;
+        }
+        return null;
+    }
+
     public static ArrayList<Task> getTasksFromDB(){
         ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<User> users = getUsersFromDB();
 
         String sql = "SELECT * FROM tasks";
 
@@ -153,8 +164,14 @@ public class DBUtility {
             {
                 int taskID = resultSet.getInt("taskID");
                 String title = resultSet.getString("title");
-
+                String description = resultSet.getString("description");
+                LocalDate creationDate = resultSet.getDate("creationDate").toLocalDate();
+                LocalDate dueDate = resultSet.getDate("dueDate").toLocalDate();
+                int severity = resultSet.getInt("priority");
+                Status status = Status.valueOf(resultSet.getString("status"));
+                User user = getUserFromList(resultSet.getString("email"),users);
                 Task newTask = new Task(taskID, title, description, creationDate, dueDate, severity, status, user);
+                tasks.add(newTask);
             }
         }
         catch (Exception e)
