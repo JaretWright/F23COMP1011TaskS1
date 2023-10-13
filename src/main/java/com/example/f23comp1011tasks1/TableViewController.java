@@ -5,9 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -15,6 +13,19 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TableViewController {
+
+
+    @FXML
+    private CheckBox createdCheckBox;
+
+    @FXML
+    private CheckBox doneCheckBox;
+
+    @FXML
+    private CheckBox inProgressCheckBox;
+
+    @FXML
+    private Label tasksShowingLabel;
 
     @FXML
     private TextField filterTextField;
@@ -51,16 +62,43 @@ public class TableViewController {
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         userColumn.setCellValueFactory(new PropertyValueFactory<>("user"));
         tableView.getItems().addAll(allTasks);
+        updateLabels();
 
         //configure the TextField to have a listener
         //this is an anymous inner class
-        filterTextField.textProperty().addListener((observableValue, oldValue, newValue) ->{
-
-                System.out.printf("Old Value: %s, New Value: %s%n", oldValue, newValue);}
+        filterTextField.textProperty().addListener((observableValue, oldValue, searchTerm) -> {
+            filterApplied(searchTerm);
+        }
         );
+
+        //Configure the CheckBoxes to be selected on startup and have listeners attached
+        createdCheckBox.setSelected(true);
+        inProgressCheckBox.setSelected(true);
+        doneCheckBox.setSelected(true);
+
+        createdCheckBox.addEventHandler(ActionEvent.ACTION, event -> {
+            filterApplied(filterTextField.getText());
+        });
     }
+
+    private void filterApplied(String searchTerm)
+    {
+        tableView.getItems().clear();
+        for (Task task : allTasks)
+        {
+            if (task.contains(searchTerm, createdCheckBox.isSelected())
+                tableView.getItems().add(task);
+        }
+        updateLabels();
+    }
+
     @FXML
     void viewCharts(ActionEvent event) throws IOException {
         SceneChanger.changeScenes(event, "charts-view.fxml");
+    }
+
+    private void updateLabels()
+    {
+        tasksShowingLabel.setText("Tasks Showing: " + tableView.getItems().size());
     }
 }

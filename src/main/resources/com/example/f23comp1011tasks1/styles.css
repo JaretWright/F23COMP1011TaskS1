@@ -21,3 +21,7 @@
 .table-view .column-header .label{
     -fx-text-fill: #332e31;
 }
+
+.check-box{
+    -fx-text-fill: white;
+}

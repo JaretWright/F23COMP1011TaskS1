@@ -127,6 +127,12 @@ public class Task {
 
     public boolean contains(String searchTerm)
     {
-        return title.contains(searchTerm);
+        searchTerm = searchTerm.toLowerCase();
+        //contains is a case sensitive search for a substring
+        return title.toLowerCase().contains(searchTerm) ||
+                Integer.toString(taskID).contains(searchTerm) ||
+                user.contains(searchTerm);  //you create the contains method in the user class
+                                            // Give me a "thumbs up" or write done in the chat when ready
+                                            //if you are stuck, you can let me know that too :-)
     }
 }

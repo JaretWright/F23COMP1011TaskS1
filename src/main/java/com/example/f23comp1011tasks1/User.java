@@ -43,4 +43,10 @@ public class User {
     {
         return String.format("%s (%s)", userName,email);
     }
+
+    public boolean contains (String searchTerm){
+        searchTerm = searchTerm.toLowerCase();
+
+        return email.toLowerCase().contains(searchTerm) || userName.toLowerCase().contains(searchTerm);
+    }
 }
