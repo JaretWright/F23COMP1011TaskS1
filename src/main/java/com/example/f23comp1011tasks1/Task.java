@@ -1,6 +1,7 @@
 package com.example.f23comp1011tasks1;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Task {
     private int taskID;
@@ -135,5 +136,10 @@ public class Task {
                 (created && status.equals(Status.CREATED) ||
                 inProgress && status.equals(Status.INPROGRESS) ||
                 done && status.equals(Status.DONE));
+    }
+
+    public long getDaysUntilDue()
+    {
+        return ChronoUnit.DAYS.between(LocalDate.now(),dueDate);
     }
 }

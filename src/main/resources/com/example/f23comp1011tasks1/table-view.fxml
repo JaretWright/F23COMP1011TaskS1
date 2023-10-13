@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1000.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.f23comp1011tasks1.TableViewController">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="319.0" layoutY="80.0" prefHeight="800.0" prefWidth="1000.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="TOP_CENTER" layoutY="-7.0" prefHeight="800.0" prefWidth="1000.0" spacing="30.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-7.0">
          <children>
             <Label id="header" text="View All Tasks" />
             <TableView fx:id="tableView">
@@ -42,6 +42,7 @@
                   </Label>
                </children>
             </HBox>
+            <Label fx:id="avgDaysOverDueLabel" text="Avg Days Over Due: " />
             <Button mnemonicParsing="false" onAction="#viewCharts" text="View Charts" />
          </children>
          <padding>

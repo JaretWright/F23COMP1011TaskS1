@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 public class TableViewController {
 
+    @FXML
+    private Label avgDaysOverDueLabel;
 
     @FXML
     private CheckBox createdCheckBox;
@@ -92,12 +94,19 @@ public class TableViewController {
     private void filterApplied(String searchTerm)
     {
         tableView.getItems().clear();
-        for (Task task : allTasks)
-        {
-            if (task.contains(searchTerm, createdCheckBox.isSelected(),
-                                        inProgressCheckBox.isSelected(), doneCheckBox.isSelected()))
-                tableView.getItems().add(task);
-        }
+        //This is using a simple loop over a collection
+//        for (Task task : allTasks)
+//        {
+//            if (task.contains(searchTerm, createdCheckBox.isSelected(),
+//                                        inProgressCheckBox.isSelected(), doneCheckBox.isSelected()))
+//                tableView.getItems().add(task);
+//        }
+
+        //this is using a stream to achieve the same result in 1 line of code
+        tableView.getItems().addAll(allTasks.stream()
+                                            .filter(task -> task.contains(searchTerm, createdCheckBox.isSelected(),
+                                                                inProgressCheckBox.isSelected(), doneCheckBox.isSelected()))
+                                            .toList());
         updateLabels();
     }
 
@@ -109,5 +118,15 @@ public class TableViewController {
     private void updateLabels()
     {
         tasksShowingLabel.setText("Tasks Showing: " + tableView.getItems().size());
+        avgDaysOverDueLabel.setText(String.format("Avg Days Over Due: %.1f", -tableView.getItems().stream()       //stream<Task>
+                                                                .filter(task -> task.getStatus() != Status.DONE)  //stream<Task>
+                                                                .filter(task -> task.getDaysUntilDue() < 0)       //stream<Task>
+                                                                .mapToLong(task -> task.getDaysUntilDue()         //stream<long>
+                                                                ).average().orElse(0)));
+
     }
+
+
+
+
 }
