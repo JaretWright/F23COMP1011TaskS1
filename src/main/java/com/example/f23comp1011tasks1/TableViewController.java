@@ -79,6 +79,14 @@ public class TableViewController {
         createdCheckBox.addEventHandler(ActionEvent.ACTION, event -> {
             filterApplied(filterTextField.getText());
         });
+
+        inProgressCheckBox.addEventHandler(ActionEvent.ACTION, event -> {
+            filterApplied(filterTextField.getText());
+        });
+
+        doneCheckBox.addEventHandler(ActionEvent.ACTION, event -> {
+            filterApplied(filterTextField.getText());
+        });
     }
 
     private void filterApplied(String searchTerm)
@@ -86,7 +94,8 @@ public class TableViewController {
         tableView.getItems().clear();
         for (Task task : allTasks)
         {
-            if (task.contains(searchTerm, createdCheckBox.isSelected())
+            if (task.contains(searchTerm, createdCheckBox.isSelected(),
+                                        inProgressCheckBox.isSelected(), doneCheckBox.isSelected()))
                 tableView.getItems().add(task);
         }
         updateLabels();
