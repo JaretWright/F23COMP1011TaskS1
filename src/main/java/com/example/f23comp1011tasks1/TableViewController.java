@@ -55,6 +55,7 @@ public class TableViewController {
         //configure the TextField to have a listener
         //this is an anymous inner class
         filterTextField.textProperty().addListener((observableValue, oldValue, newValue) ->{
+
                 System.out.printf("Old Value: %s, New Value: %s%n", oldValue, newValue);}
         );
     }

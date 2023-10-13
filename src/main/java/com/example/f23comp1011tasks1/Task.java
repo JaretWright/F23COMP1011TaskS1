@@ -124,4 +124,9 @@ public class Task {
         else
             throw new IllegalArgumentException("user cannot be null");
     }
+
+    public boolean contains(String searchTerm)
+    {
+        return title.contains(searchTerm);
+    }
 }
